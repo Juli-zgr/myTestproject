@@ -6,12 +6,12 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'myproject-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'todos';
   toDisplay = false;
-  message= '';
+  message = '';
   count = 0;
   userInput = 'Juli';
   todoForm!: FormGroup;
@@ -32,6 +32,7 @@ export class AppComponent implements OnInit{
     this.toDisplay = !this.toDisplay;
     this.toMessage();
   }
+
   toMessage() {
     console.log(`The light is ${this.toDisplay ? 'On' : 'Off'}`);
     this.loggingService.printLog('generate message');

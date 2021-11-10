@@ -9,16 +9,17 @@ import { TodoResolverService } from './todo-resolver.service';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-  todoList:TodoItem[] = [];
+  todoList: TodoItem[] = [];
 
-  constructor(private service: TodoResolverService) { }
+  constructor(private service: TodoResolverService) {
+  }
 
   ngOnInit(): void {
     const todos$ = this.service.getTodos();
     todos$.subscribe((data) => {
         this.todoList = data;
-    }
-    )
+      }
+    );
   }
 
 }

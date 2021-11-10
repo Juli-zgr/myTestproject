@@ -11,7 +11,8 @@ import { TodoResolverService } from '../todo-resolver.service';
 export class TodoEditComponent implements OnInit {
   todoForm!: FormGroup;
 
-  constructor(private service: TodoResolverService) { }
+  constructor(private service: TodoResolverService) {
+  }
 
   ngOnInit(): void {
     this.todoForm = new FormGroup({
@@ -22,11 +23,11 @@ export class TodoEditComponent implements OnInit {
   }
 
   onSubmit() {
-    const newTodo:TodoItem = new TodoItem(
+    const newTodo: TodoItem = new TodoItem(
       this.todoForm.value['todoName'],
       this.todoForm.value['todoTime'],
       this.todoForm.value['todoImportance']
-    )
+    );
     this.todoForm.reset();
     this.service.addTodo(newTodo);
   }
