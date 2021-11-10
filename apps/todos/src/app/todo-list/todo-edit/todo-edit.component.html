@@ -1,0 +1,46 @@
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+
+  <div class="c-todo form-group">
+    <div>
+      <label class="c-header" for="todoName">title:</label>
+      <input id="todoName"
+             class="c-todo__input"
+             type="text"
+             formControlName="todoName"
+             placeholder="new todo"
+             required
+      >
+    </div>
+
+    <br>
+    <div>
+      <label class="c-header" for="todoName">duration:</label>
+      <input id="todoTime"
+             class="c-todo__input"
+             type="text"
+             formControlName="todoTime"
+             placeholder="how long do you need for the task "
+      >
+    </div>
+
+    <br>
+    <div>
+      <label class="c-header" for="todoName">importance:</label>
+      <input id="todoImportance"
+             class="c-todo__input"
+             type="text"
+             formControlName="todoImportance"
+             placeholder="Importance of the task"
+      >
+    </div>
+    <br>
+    <button id="add-todo"
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!todoForm.valid"
+    >
+      add
+    </button>
+  </div>
+
+</form>
