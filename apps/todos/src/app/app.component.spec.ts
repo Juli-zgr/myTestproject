@@ -5,7 +5,7 @@ import { LoggingService } from './logging.service';
 import { MaybeMocked, mocked } from 'ts-jest/dist/utils/testing';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoEditComponent } from './todo-list/todo-edit/todo-edit.component';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -42,7 +42,7 @@ describe('AppComponent', () => {
 
       afterEach(() => {
         componentClickedSpy.mockClear();
-        jest.useFakeTimers();
+        jest.useRealTimers();
       })
 
       it('should click',  () => {
