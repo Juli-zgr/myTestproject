@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoEditComponent } from './todo-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('TodoEditComponent', () => {
   let component: TodoEditComponent;
@@ -8,7 +9,8 @@ describe('TodoEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TodoEditComponent]
+      declarations: [TodoEditComponent],
+      imports: [FormsModule, ReactiveFormsModule],
     })
       .compileComponents();
   });

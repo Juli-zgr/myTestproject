@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   toDisplay = false;
   message = '';
   count = 0;
-  userInput = 'Juli';
   todoForm!: FormGroup;
 
 
@@ -22,13 +21,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.todoForm = new FormGroup({
-      todoName: new FormControl(''),
-      todoTime: new FormControl(''),
-      todoImportance: new FormControl('')
+      name: new FormControl(''),
+      time: new FormControl(''),
+      importance: new FormControl('')
     });
   }
 
-  clicked() {
+  onMessageToggleButtonClicked() {
     this.toDisplay = !this.toDisplay;
     this.toMessage();
   }

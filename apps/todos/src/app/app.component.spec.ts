@@ -2,16 +2,25 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { AppComponent } from './app.component';
 import { By } from '@angular/platform-browser';
 import { LoggingService } from './logging.service';
+import { MaybeMocked, mocked } from 'ts-jest/dist/utils/testing';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoEditComponent } from './todo-list/todo-edit/todo-edit.component';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
+  let mockedLoggingservice: MaybeMocked<LoggingService>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      declarations: [AppComponent, TodoListComponent, TodoEditComponent],
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [ {provide:LoggingService, useValue: {printLog: jest.fn()}} ]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    mockedLoggingservice = mocked(TestBed.inject(LoggingService));
     fixture.detectChanges();
   });
 
@@ -25,7 +34,7 @@ describe('AppComponent', () => {
       let componentClickedSpy: jest.SpyInstance;
 
       beforeEach(() => {
-        componentClickedSpy = jest.spyOn(component, 'clicked');
+        componentClickedSpy = jest.spyOn(component, 'onMessageToggleButtonClicked');
         jest.useFakeTimers();
         jest.spyOn(global, 'setTimeout');
         //componentClickedSpy.mockImplementation(() => console.log('hello'));
@@ -33,26 +42,32 @@ describe('AppComponent', () => {
 
       afterEach(() => {
         componentClickedSpy.mockClear();
+        jest.useFakeTimers();
       })
 
       it('should click',  () => {
-        const button = fixture.debugElement.nativeElement.querySelector('button');
+        const button = fixture.debugElement.nativeElement.querySelector('#message-toggle-button');
 
         button.click();
 
-        expect(component.clicked).toHaveBeenCalled();
+        expect(component.onMessageToggleButtonClicked).toHaveBeenCalled();
       });
 
       it('should change message', () => {
-        const button = fixture.debugElement.nativeElement.querySelector('button');
+        const button = fixture.debugElement.nativeElement.querySelector('#message-toggle-button');
+
+        button.click();
+        button.click();
+
+        expect(component.message).toEqual('The light is Off');
+      })
+
+      it('should change message', () => {
+        const button = fixture.debugElement.nativeElement.querySelector('#message-toggle-button');
 
         button.click();
 
         expect(component.message).toEqual('The light is On');
-
-        button.click();
-
-        expect(component.message).toEqual('The light is Off');
       })
 
       it('test counter', fakeAsync(() => {
@@ -65,25 +80,29 @@ describe('AppComponent', () => {
 
       it('setTimeout ausführen', () => {
         component.countClick();
-        component.countClick();
-        expect(setTimeout).toHaveBeenCalledTimes(2);
+
+        expect(setTimeout).toHaveBeenCalledTimes(1);
       })
 
       it('test toDisplay boolean', () => {
-        component.clicked();
+        component.onMessageToggleButtonClicked();
+
         expect(component.toDisplay).toBe(true);
       })
     })
   })
 
   describe('Service: LoggingService', () => {
-    beforeEach(() => TestBed.configureTestingModule({
-      providers: [ LoggingService ]
-    }));
+    /*let mockedLoggingservice: MaybeMocked<LoggingService>;
+    beforeEach(async() => await TestBed.configureTestingModule({
+      providers: [ {provide:LoggingService, useValue: {printLog: jest.fn()}} ]
+    }).compileComponents());
+    mockedLoggingservice = mocked(TestBed.inject(LoggingService));*/
 
-    /*it('should return available languages', inject([LoggingService], service => {
-      expect(service.printLog());
-    }));*/
+    it('should call Loggingservice', function() {
+      component.toMessage();
+      expect(mockedLoggingservice.printLog).toBeCalled();
+    });
   })
 
   describe('Template', () => {

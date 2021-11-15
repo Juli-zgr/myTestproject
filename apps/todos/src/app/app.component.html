@@ -3,8 +3,9 @@
 </header>
 <main>
   <br>
-  <br>
-  <button (click)="clicked()">toggle message</button>
+  <button
+    id="message-toggle-button"
+    (click)="onMessageToggleButtonClicked()">toggle message</button>
   <span class="c-app__message">{{message}}</span>
   <br>
   <p>Message-counter</p>
