@@ -1,1 +1,1 @@
-export * from './todoItem.interface';
+export * from './todo-item.class';
