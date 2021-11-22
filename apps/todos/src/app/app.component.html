@@ -2,6 +2,14 @@
   <h1>Welcome to {{ title }}!</h1>
 </header>
 <main>
-  <button (click)="clicked()">toggle message</button>
-  <span class="c-app__message">{{toMessage()}}</span>
+  <br>
+  <button
+    id="message-toggle-button"
+    (click)="onMessageToggleButtonClicked()">toggle message</button>
+  <span class="c-app__message">{{message}}</span>
+  <br>
+  <p>Message-counter</p>
+  <p>Die message wurde {{count}} mal geändert</p>
+  <h3>To do list: </h3>
+  <myproject-todo-list></myproject-todo-list>
 </main>
